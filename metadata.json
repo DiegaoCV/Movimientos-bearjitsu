@@ -1,0 +1,5 @@
+{
+  "name": "Mov. Berjitsu - Real-Time Inventory & Sales",
+  "description": "A professional inventory management system for Berjitsu, featuring real-time tracking, semantic search powered by Gemini, and an integrated sales module.",
+  "requestFramePermissions": []
+}
