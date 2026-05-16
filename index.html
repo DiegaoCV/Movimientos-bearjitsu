@@ -1,0 +1,35 @@
+import { InventoryItem } from "./types";
+
+export const semanticSearch = async (query: string, items: InventoryItem[]): Promise<string[]> => {
+  try {
+    const response = await fetch("/api/gemini/search", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query, items }),
+    });
+    
+    if (!response.ok) throw new Error(`Server Error: ${response.status}`);
+    const data = await response.json();
+    return data.result || items.map(i => i.id);
+  } catch (error) {
+    console.error("Gemini Search Error:", error);
+    return items.map(i => i.id);
+  }
+};
+
+export const generateItemDescription = async (name: string): Promise<string> => {
+  try {
+    const response = await fetch("/api/gemini/description", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name }),
+    });
+    
+    if (!response.ok) throw new Error(`Server Error: ${response.status}`);
+    const data = await response.json();
+    return data.description || "";
+  } catch (error) {
+    console.error("Gemini Description Error:", error);
+    return "";
+  }
+};
